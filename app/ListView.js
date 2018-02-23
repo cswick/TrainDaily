@@ -7,7 +7,7 @@ import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import TodoService from './TodoService';
 
-let dataList = TodoService.findAll();
+let dataList = TodoService.findIncomplete();
 var dataListOrder = getOrder(dataList);
 
 function getOrder(list) {
