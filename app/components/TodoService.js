@@ -50,6 +50,14 @@ let TodoService = {
       callback();
       todo.updatedAt = new Date();
     });
+  },
+
+  filterRecords: function (filter) {
+    let todos = repository.objects('Todo').filter(todo => !todo.completed && todo.type === filter);
+
+    let shuffled = (todos.sort(() => .5 - Math.random())).slice(0, 5);
+
+    return shuffled;
   }
 
 };
@@ -113,7 +121,7 @@ TodoService.save(new TodoModel('Swinging Gate', 'Gold'));
 TodoService.save(new TodoModel('Hidden Fist', 'Gold'));
 TodoService.save(new TodoModel('Plucking a Bird from the Sky', 'Gold'));
 TodoService.save(new TodoModel('Circles of Glass', 'Gold'));
-TodoService.save(new TodoModel('Flashig Daggers', 'Gold'));
+TodoService.save(new TodoModel('Flashing Daggers', 'Gold'));
 TodoService.save(new TodoModel('One With Nature', 'Gold'));
 TodoService.save(new TodoModel('Rage of the White Crane', 'Gold'));
 TodoService.save(new TodoModel('Flame of the Mountain Dragon', 'Gold'));
@@ -123,7 +131,7 @@ TodoService.save(new TodoModel('Leopard at the Well (B)', 'Gold'));
 TodoService.save(new TodoModel('Fang of Silk', 'Gold'));
 TodoService.save(new TodoModel('Gung Gee Fook Fu', 'Gold'));
 
-TodoService.save(new TodoModel('Circles of Destructio', 'Brown'));
+TodoService.save(new TodoModel('Circles of Destruction', 'Brown'));
 TodoService.save(new TodoModel('Wind Enters the Cave', 'Brown'));
 TodoService.save(new TodoModel('Thief Steals the Jewels', 'Brown'));
 TodoService.save(new TodoModel('Mystic\u2019s Fury', 'Brown'));

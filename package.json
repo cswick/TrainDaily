@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-material-dropdown": "^0.9.0",
     "react-native-sortable-list": "^0.0.20",
     "react-native-sortable-listview": "^0.2.8",
     "react-native-vector-icons": "^4.5.0",

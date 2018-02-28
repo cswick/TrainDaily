@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {TouchableHighlight, View, Text} from 'react-native';
 import CheckBox from './CheckBox';
 import TodoService from './TodoService';
+import Icon from  'react-native-vector-icons/MaterialIcons';
 
 class ListViewItem extends Component {
   constructor(props) {
@@ -55,8 +56,14 @@ class ListViewItem extends Component {
                 return '#802b00';
               break;
 
+              case 'Red':
+                return '#FF0000'
+
+              case 'Black':
+                return '#000000'
+
               default:
-              return '#000';
+              return '#2F4F4F';
           }
       }
   }
@@ -67,9 +74,12 @@ class ListViewItem extends Component {
     let textDecorationLine = data.completed ? 'line-through' : 'none';
     return (
       <TouchableHighlight underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#F8F8F8", borderBottomWidth:1, borderColor: '#eee'}} {...this.props.sortHandlers}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', padding: 10, justifyContent: 'flex-start'}}>
           <CheckBox data={data} color= {this.getTypeColor()} onCheckBoxPressed={this._onCheckBoxPressed}></CheckBox>
           <Text style={{fontSize:18, color: this.getTypeColor(), textDecorationLine: textDecorationLine}}>{data.title}</Text>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Icon.Button color= '#C5C8C9' style={{backgroundColor: '#F8F8F8'}} name="block" />
+          </View>
         </View>
       </TouchableHighlight>
     )
