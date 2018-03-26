@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Picker} from 'react-native';
+import { Text, View, TouchableHighlight} from 'react-native';
 import TodoModel from './TodoModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
@@ -7,7 +7,6 @@ import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import TodoService from './TodoService';
 import Icon from  'react-native-vector-icons/MaterialIcons';
-import { Dropdown } from 'react-native-material-dropdown';
 
 let dataList = TodoService.findIncomplete();
 var dataListOrder = getOrder(dataList);
@@ -26,6 +25,7 @@ class ListView extends Component {
     super(props);
     this.updateDataList = this.updateDataList.bind(this);
     this._onCompletedChange = this._onCompletedChange.bind(this);
+    this.refresh = this.refresh.bind(this);
     this.state = {
       dataList: dataList
     }
@@ -49,6 +49,9 @@ class ListView extends Component {
     else {
       dataList = TodoService.filterRecords(filter); 
     }
+    this.setState({
+      dataList: dataList
+    });
   }
 
   render() {
@@ -80,12 +83,9 @@ class ListView extends Component {
         />
       );
       typePicker = (
-        <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1}}>
-          <View style={{flex: 1}}>
-            <Dropdown label='Filter' data={data} dropdownOffset={{top:-40, left: 0}} style={{flex: 1}} onChangeText={this.refresh(selectedItem)}/>
-          </View>
+        <View> 
           <View style={{alignContent: 'center'}}>
-            <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' />
+            <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' onPress={this.refresh} />
           </View>
         </View>
       );
