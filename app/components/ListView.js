@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight} from 'react-native';
+import { Dimensions, Text, View, TouchableHighlight} from 'react-native';
 import TodoModel from './TodoModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
@@ -7,6 +7,7 @@ import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import TodoService from './TodoService';
 import Icon from  'react-native-vector-icons/MaterialIcons';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
 let dataList = TodoService.findIncomplete();
 var dataListOrder = getOrder(dataList);
@@ -54,22 +55,73 @@ class ListView extends Component {
     });
   }
 
+  onSelectedItemsChange = (selectedItems) => {
+    this.setState({ selectedItems });
+  }
+
   render() {
-    let data = [{
-      value: 'Orange',
-    }, {
-      value: 'Blue',
-    }, {
-      value: 'Green',
-    }, {
-      value: 'Gold',
-    }, {
-      value: 'Brown',
-    }, {
-      value: 'Red',
-    }, {
-      value: 'Black',
-    }];
+    const data = [
+      {
+      name: 'Color Levels',
+      id: '0',
+      children: [{
+        name: 'Orange',
+        id: '10',
+      }, {
+        name: 'Blue',
+        id: '11',
+      }, {
+        name: 'Green',
+        id: '12',
+      }, {
+        name: 'Gold',
+        id: '13',
+      }, {
+        name: 'Brown',
+        id: '14',
+      }, {
+        name: 'Red',
+        id: '15',
+      }, {
+        name: 'Black',
+        id: '16'
+      }]
+    },
+    {
+    name: 'Weapons',
+    id: '1',
+    children: [
+      {
+        name: 'Knife',
+        id: '17'
+      }, {
+        name: 'Staff',
+        id: '18'
+      }, {
+        name: 'Karambit',
+        id: '19'
+      }, {
+        name: 'Short Stick',
+        id: '20'
+      }, {
+        name: 'Straight Sword',
+        id: '21'
+      }, {
+        name: 'Broad Sword',
+        id: '22'
+      }, {
+        name: 'Fan',
+        id: '23'
+      }, {
+        name: 'Double Blades',
+        id: '24'
+      }, {
+        name: 'Double Bowie Knives',
+        id: '25'
+    }]
+  }
+  ]
+
     let listView = (<View></View>);
     if (this.state.dataList.length) {
       listView = (
@@ -85,6 +137,17 @@ class ListView extends Component {
       typePicker = (
         <View> 
           <View style={{alignContent: 'center'}}>
+            <SectionedMultiSelect
+            items={data}
+            uniqueKey = 'id'
+            subKey='children'
+            selectText='Refresh Filter'
+            showDropDowns={true}
+            readOnlyHeadings={true}
+            onSelectedItemsChange={this.onSelectedItemsChange}
+            selectedItems={this.state.selectedItems}
+            showCancelButton={true}
+            />
             <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' onPress={this.refresh} />
           </View>
         </View>

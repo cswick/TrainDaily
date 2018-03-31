@@ -3819,6 +3819,10 @@ react-native-material-textfield@^0.12.0:
   dependencies:
     prop-types "^15.5.9"
 
+react-native-sectioned-multi-select@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-sectioned-multi-select/-/react-native-sectioned-multi-select-0.4.0.tgz#6b07bf55ea618bcb0467b89751544caa3857071d"
+
 react-native-sortable-list@^0.0.20:
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/react-native-sortable-list/-/react-native-sortable-list-0.0.20.tgz#cc37ae8699f5ed4f47af9c85377619c781470085"
