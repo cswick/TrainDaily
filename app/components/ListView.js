@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Dimensions, Text, View, TouchableHighlight} from 'react-native';
+import { Dimensions, Text, PixelRatio, View, TouchableHighlight} from 'react-native';
 import TodoModel from './TodoModel';
-import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
 import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import TodoService from './TodoService';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import AddItemModal from './AddItemModal';
 
 let dataList = TodoService.findIncomplete();
 var dataListOrder = getOrder(dataList);
@@ -27,6 +27,7 @@ class ListView extends Component {
     this.updateDataList = this.updateDataList.bind(this);
     this._onCompletedChange = this._onCompletedChange.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.addItem = this.addItem.bind(this);
     this.state = {
       dataList: dataList
     }
@@ -57,6 +58,10 @@ class ListView extends Component {
 
   onSelectedItemsChange = (selectedItems) => {
     this.setState({ selectedItems });
+  }
+
+  addItem() {
+    this.setState({modalVisible: true})
   }
 
   render() {
@@ -135,8 +140,7 @@ class ListView extends Component {
         />
       );
       typePicker = (
-        <View> 
-          <View style={{alignContent: 'center'}}>
+          <View style={{alignContent: 'center', paddingHorizontal: 20}}>
             <SectionedMultiSelect
             items={data}
             uniqueKey = 'id'
@@ -146,11 +150,32 @@ class ListView extends Component {
             readOnlyHeadings={true}
             onSelectedItemsChange={this.onSelectedItemsChange}
             selectedItems={this.state.selectedItems}
-            showCancelButton={true}
+            showCancelButton={false}
+            styles={{
+              chipText: {
+                width: Dimensions.get('screen').width - 90 ,
+              },
+              container: {
+
+              },
+              cancelButton: {
+                backgroundColor: 'red',
+  
+              },
+              button: {
+                paddingTop: 40,
+                width: 340,
+                paddingBottom: 40,
+                backgroundColor: 'lightgrey'
+              },
+              confirmText: {
+                padding: 10,
+                color: 'black',
+              }
+            }}
             />
-            <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' onPress={this.refresh} />
+
           </View>
-        </View>
       );
       selectedType = (
         <Text style={{fontSize: 30, alignSelf: 'center', color: 'red'}}>{this.state.type}</Text>
@@ -163,7 +188,9 @@ class ListView extends Component {
             data={Array.from(dataList)}
             updateDataList={this.updateDataList}/> */}
           {listView}
+          <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' onPress={this.refresh} />
           {typePicker}
+          <AddItemModal modalVisible={this.state.modalVisible} />
         </View>
     )
   }
