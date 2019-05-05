@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import ListView from './ListView';
 
-export default class TodoApp extends Component {
+export default class TrainDaily extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('TodoApp', () => TodoApp);
+AppRegistry.registerComponent('TrainDaily', () => TrainDaily);

@@ -9,13 +9,13 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.0",
-    "react-native-elements": "^0.19.1",
+    "react-native-elements": "v1.0.0-beta5",
+    "react-native-firebase": "^5.2.3",
     "react-native-material-dropdown": "^0.9.0",
     "react-native-sectioned-multi-select": "^0.4.0",
     "react-native-sortable-list": "^0.0.20",
     "react-native-sortable-listview": "^0.2.8",
-    "react-native-vector-icons": "^4.5.0",
-    "realm": "^2.2.8"
+    "react-native-vector-icons": "^4.5.0"
   },
   "devDependencies": {
     "babel-jest": "22.2.2",

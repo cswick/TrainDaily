@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "774770624139",
+    "firebase_url": "https://traindaily-19694.firebaseio.com",
+    "project_id": "traindaily-19694",
+    "storage_bucket": "traindaily-19694.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774770624139:android:6b252d7d0b18d175",
+        "android_client_info": {
+          "package_name": "com.traindaily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774770624139-3qimfaik2l3dv8f45dh3j6krh4qgakn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEFyHuMM5emBZoM9BTNlDM7N4FhuywtPI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

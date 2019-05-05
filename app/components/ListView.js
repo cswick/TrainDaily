@@ -5,12 +5,13 @@ import SortableListView from 'react-native-sortable-listview';
 import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import TodoService from './TodoService';
-import Icon from  'react-native-vector-icons/MaterialIcons';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import { Button, Icon } from 'react-native-elements';
 import AddItemModal from './AddItemModal';
+import firebase from 'react-native-firebase';
 
-let dataList = TodoService.findIncomplete();
-var dataListOrder = getOrder(dataList);
+// let dataList = TodoService.findIncomplete();
+// var dataListOrder = getOrder(techniques);
 
 function getOrder(list) {
   return Object.keys(list);
@@ -28,9 +29,41 @@ class ListView extends Component {
     this._onCompletedChange = this._onCompletedChange.bind(this);
     this.refresh = this.refresh.bind(this);
     this.addItem = this.addItem.bind(this);
+    this.ref = firebase.firestore().collection('techniques')
     this.state = {
-      dataList: dataList
+      loading: true,
+      techniques: []
     }
+  }
+
+  componentDidMount() {
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onCollectionUpdate = (querySnapshot) => {
+    const techniques = [];
+    querySnapshot.forEach((tech) => {
+        const { title, type, completed, createdAt, updatedAt} = tech.data();
+
+        techniques.push({
+          key: tech.id,
+          tech,
+          title,
+          type,
+          completed,
+          createdAt,
+          updatedAt
+        });
+    });
+
+    this.setState({
+      techniques,
+      loading: false,
+    })
   }
 
   updateDataList(dataList) {
@@ -65,6 +98,9 @@ class ListView extends Component {
   }
 
   render() {
+    if(this.state.loading) {
+      return null;
+    }
     const data = [
       {
       name: 'Color Levels',
@@ -97,7 +133,7 @@ class ListView extends Component {
     id: '1',
     children: [
       {
-        name: 'Knife',
+        name: 'Blade',
         id: '17'
       }, {
         name: 'Staff',
@@ -115,7 +151,7 @@ class ListView extends Component {
         name: 'Broad Sword',
         id: '22'
       }, {
-        name: 'Fan',
+        name: 'Iron Fan',
         id: '23'
       }, {
         name: 'Double Blades',
@@ -128,24 +164,27 @@ class ListView extends Component {
   ]
 
     let listView = (<View></View>);
-    if (this.state.dataList.length) {
+  // if (this.state.dataList.length) {
       listView = (
         <SortableListView
           ref='listView'
           style={{flex: 1}}
-          data={this.state.dataList}
-          order={dataListOrder}
+          data={this.state.techniques}
           onRowMoved={e => moveOrderItem(this, e.from, e.to)}
           renderRow={(dataItem, section, index) => <ListViewItem data={dataItem} onCompletedChange={this._onCompletedChange}/>}
         />
       );
       typePicker = (
-          <View style={{alignContent: 'center', paddingHorizontal: 20}}>
+          <View>
+            <Icon
+            onPress={this.refresh}
+            name= 'refresh' 
+            reverse/>
             <SectionedMultiSelect
             items={data}
             uniqueKey = 'id'
             subKey='children'
-            selectText='Refresh Filter'
+            selectText='Filter'
             showDropDowns={true}
             readOnlyHeadings={true}
             onSelectedItemsChange={this.onSelectedItemsChange}
@@ -174,13 +213,11 @@ class ListView extends Component {
               }
             }}
             />
-
           </View>
       );
       selectedType = (
         <Text style={{fontSize: 30, alignSelf: 'center', color: 'red'}}>{this.state.type}</Text>
       );
-    }
 
     return (
         <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
@@ -188,7 +225,6 @@ class ListView extends Component {
             data={Array.from(dataList)}
             updateDataList={this.updateDataList}/> */}
           {listView}
-          <Icon.Button name='refresh' style={{backgroundColor: '#F8F8F8'}} color='#C5C8C9' onPress={this.refresh} />
           {typePicker}
           <AddItemModal modalVisible={this.state.modalVisible} />
         </View>

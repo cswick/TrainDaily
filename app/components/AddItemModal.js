@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {Modal, Text, TextInput, View, TouchableHighlight} from 'react-native';
-import Icon from  'react-native-vector-icons/MaterialIcons';
-import { Button } from 'react-native-elements';
+import {Modal, Text, View, TouchableHighlight} from 'react-native';
+import { Button, ButtonGroup, Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class AddItemModal extends Component {
     state = {
       modalVisible: false,
       itemTitle: 'Enter Title',
+      selected: [0],
     };
   
     setModalVisible(visible) {
@@ -25,23 +26,34 @@ class AddItemModal extends Component {
             }}>
             <View style={{marginTop: 22}}>
               <View>
-             <Button title='Save Item' backgroundColor='#9e42f4'/>
-                <TouchableHighlight
+              <Input placeholder='Item Title'/>
+              <ButtonGroup
+                selectedBackgroundColor='#FF8C00'
+                selectMultiple
+                onPress={selected => {
+                  this.setState({ selected });
+                }}
+                selectedIndex={this.state.selected}
+                buttons={['Hello', 'Goodbye', 'Hi', 'Bye']}
+                containerStyle={{height: 30}} />
+                <Button
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
-                  }}>
-                  <Text>Hide Modal</Text>
-                </TouchableHighlight>
+                  }}
+                  raised
+                  icon={{name: 'save'}}
+                  title='Save Item' />
               </View>
             </View>
           </Modal>
   
-          <TouchableHighlight
+          <Button
             onPress={() => {
               this.setModalVisible(true);
-            }}>
-            <Icon name='add' style={{margin: 10, padding: 10, backgroundColor: '#F8F8F8'}} color='#9e42f4'>ADD NEW ITEM</Icon>
-          </TouchableHighlight>
+            }}
+            raised
+            icon={{name: 'add'}}
+            title='Add new item' />
         </View>
       );
     }
