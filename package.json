@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/babel-preset": "^0.85.3",
     "react": "19.2.6",
     "react-native": "0.85.3",
     "react-native-elements": "3.4.3",
@@ -19,7 +20,6 @@
   },
   "devDependencies": {
     "babel-jest": "30.4.1",
-    "babel-preset-react-native": "4.0.1",
     "jest": "30.4.2",
     "react-test-renderer": "19.2.6"
   },
