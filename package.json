@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@react-native/babel-preset": "^0.85.3",
-    "react": "19.2.6",
+    "react": "19.2.7",
     "react-native": "0.85.3",
     "react-native-elements": "3.4.3",
     "react-native-firebase": "^5.2.3",
